@@ -19,10 +19,9 @@ from io import BytesIO
 #BD
 import mysql.connector
 
+# Autor: Armando Nava Betancourt  Fecha de la ultima actualizacion: 22/07/2022
 def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.abspath(".")
@@ -466,7 +465,6 @@ def window2():
  
     okbutton = Button(frame2, text="OK", bg="green3" ,  command= lambda:[codigos()],font=("Arial CE", 12 ))
     okbutton.place(x=1270, y=40, width=50, height=50)
-    #BOTON PARA LIMPIAR LOS INPUTS
     cleanbutton = Button(frame2, text="LIMPIAR", bg="cyan3" , fg="IndianRed4", command= lambda:[cleanEntry()],font=("Arial CE", 12 ))
     cleanbutton.place(x=640, y=40, width=70, height=50)
     
@@ -493,7 +491,7 @@ def insertdb():
     finally:
         if mydb.is_connected():
             mydb.close()
-            print("MySQL connection is closed")
+            #print("MySQL connection is closed")
             
             
 def cleanEntry():
@@ -532,7 +530,7 @@ def clean():
     
 def window3():
     global win2
-    win3=tk.Toplevel(ROOT)#se creo nueva ventana de ROOT 
+    win3=tk.Toplevel(ROOT) 
     win3.title("Industrias DMU S.A DE C.V") 
     win3.configure(bg="lawn green") 
     ancho_ventana = 400
@@ -759,7 +757,6 @@ def desaparecer(widget):
         
        
 if __name__ == "__main__":
-    
     ROOT = tk.Tk()
     ancho_ventana = 400
     alto_ventana = 200
@@ -771,7 +768,6 @@ if __name__ == "__main__":
     ROOT.geometry(posicion)
     ROOT.resizable(0,0)
     APP = Pasword(parent=ROOT)
-    
     #HILOS PARA EJECUTAR LAS FUNCIONES A LA PAR DEL PRINCIPAL
     th = threading.Thread(target=imgValidation, daemon=True)
     th.start()
