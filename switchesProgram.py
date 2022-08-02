@@ -544,11 +544,11 @@ def window3():
     
     
 def imgValidation():
-    global resize_check,st1, st0, st2, st3, st4, st5 ,img0, img1, img2, img3, img4, img5, img6, img7, img8, img9, numSwitch, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9
+    global st1, st0, st2, st3, st4, st5 ,img0, img1, img2, img3, img4, img5, img6, img7, img8, img9, numSwitch, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9
     ruta= resource_path("SinCorriente.png")
     img = Image.open(ruta)
     resizeimg = img.resize((80, 80))
-    s0 = s1 =s2 = s3 = s4 = s5 = s6 = s7 = s8 = s9 = False
+    s0 = s1 =s2 = s3 = s4 = s5 = s6 = s7 = s8 = s9 = s10=False
     img0 = ImageTk.PhotoImage(resizeimg)
     img1 = ImageTk.PhotoImage(resizeimg)
     img2 = ImageTk.PhotoImage(resizeimg)
@@ -562,7 +562,7 @@ def imgValidation():
     ruta= resource_path("check.png")
     i = Image.open(ruta)
     resize_check = i.resize((80, 80))
-    while(s0 == False or s1==  False or  s2==  False or s3==  False or s4==  False or s5== False or s6== False or s7== False or s8== False or s9== False):
+    while(s0 == False or s1==  False or  s2==  False or s3==  False or s4==  False or s5== False or s6== False or s7== False or s8== False or s9== False or s10==False):
         if st0 == True:
             img0 = ImageTk.PhotoImage(resize_check)
             s0=True
@@ -596,9 +596,9 @@ def imgValidation():
         elif st8 == True:
             img8 = ImageTk.PhotoImage(resize_check)
             s8=True
-        elif st9 == True and numSwitch==10 and s0 == True and s1== True and  s2== True and s3== True and s4== True and s5== True and s6== True and s7== True and s8==True:
+        elif st9 == True:
             img9 = ImageTk.PhotoImage(resize_check)
-            img9=True
+            s9=True
         elif numSwitch==10 and s0 == True and s1== True and  s2== True and s3== True and s4== True and s5== True and s6== True and s7== True and s8==True and s9==True:
             window3()
             break 
