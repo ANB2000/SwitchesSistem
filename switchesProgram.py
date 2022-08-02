@@ -40,20 +40,16 @@ class Pasword(tk.Frame):
         self.parent.title("Checador de switches DMU")
         self.lbl = Label(ROOT, text="Ingresar contraseña", anchor="center" ,fg="IndianRed4",font=("Arial CE", 17))
         self.lbl.place(x=100, y=20, width=210, height=40)
-
-        self.btn = Button(ROOT, text="continuar", command= lambda:self.open(), bg="DodgerBlue3" ,font=("Arial CE", 13 )) 
-        self.btn.place(x=240,y=90, width=80, height=30)
-    
         self.pas = Entry(ROOT, bg="LightCyan3", show="*")
-        self.pas.place(x=80,y=90, width=100, height=30)
-        
+        self.pas.place(x=155,y=90, width=100, height=30)
         ruta= resource_path("industriasDMU.png")
         imagen= PhotoImage(file=ruta).subsample(2) 
         ROOT.fondo = Label(ROOT, image=imagen, bg= "IndianRed4").place(x=125,y=130)
         numSwitch=0
+        self.pas.bind("<Return>", self.open)
         
                 
-    def open(self):
+    def open(self, event):
         valor= int(self.pas.get())
         if valor == 123456:
             self.pas.delete(0, 'end')
@@ -67,6 +63,8 @@ def window2():
     win2=tk.Toplevel(ROOT)   
     win2.title("Industrias DMU S.A DE C.V")
     win2.geometry("1450x1350")
+    def focus_next_window(event):
+        event.widget.tk_focusNext().focus()
     frame1 = Frame(win2) 
     frame1.grid(row=0 , column=0)
     frame1.config( width=1360, height=90)
@@ -350,7 +348,7 @@ def window2():
         lbl9.place(x=925, y=355, width=30, height=30)
         
         
-    def codigos():
+    def codigos(event):
         global lbl, lbl1, lbl2, lbl3, lbl4, lbl5, lbl6, lbl7, lbl8, lbl9, fondo, frame3, foto,parte, img0, img1, img2, img3, img4, img5, img6, img7, img8, img9, noMotor, noSwitch, numSwitch, s0, s1, s2, s3, s4, s5, s6, s7, s8, s9
         parte =''
         m=noMotor.get()
@@ -460,13 +458,12 @@ def window2():
             lbl9.lift(fondo)
             parte='176A1-A4902'
         else:
+            cleanEntry()
             messagebox.showerror(title="Error", message="Asegurate de escanear los codigos en el orden correcto")               
             
  
-    okbutton = Button(frame2, text="OK", bg="green3" ,  command= lambda:[codigos()],font=("Arial CE", 12 ))
-    okbutton.place(x=1270, y=40, width=50, height=50)
-    cleanbutton = Button(frame2, text="LIMPIAR", bg="cyan3" , fg="IndianRed4", command= lambda:[cleanEntry()],font=("Arial CE", 12 ))
-    cleanbutton.place(x=640, y=40, width=70, height=50)
+    win2.bind("<Return>", focus_next_window) 
+    noSwitch.bind("<Return>", codigos)
     
     
 def insertdb():
@@ -532,7 +529,7 @@ def window3():
     global win2
     win3=tk.Toplevel(ROOT) 
     win3.title("Industrias DMU S.A DE C.V") 
-    win3.configure(bg="lawn green") 
+    win3.configure(bg="light cyan") 
     ancho_ventana = 400
     alto_ventana = 200
     x_ventana = win3.winfo_screenwidth() // 2 - ancho_ventana // 2
@@ -540,7 +537,7 @@ def window3():
     posicion = str(ancho_ventana) + "x" + str(alto_ventana) + "+" + str(x_ventana) + "+" + str(y_ventana)
     win3.geometry(posicion)
     win3.resizable(0,0)
-    lbl = Label(win3, text="¡VALIDACION EXITOSA!", anchor="center",font=("Arial CE", 20), bg="lawn green")
+    lbl = Label(win3, text="¡VALIDACION EXITOSA!", anchor="center",font=("Arial CE", 21), bg="light cyan")
     lbl.place(x=50, y=20, width=300, height=60)
     btnetiqueta = Button(win3, text="Imprimir codigo de barras", command= lambda:[insertdb(),clean(),impresionbarcode(),win3.destroy()], bg="green3" ,font=("Arial CE", 15 )) 
     btnetiqueta.place(x=50,y=100, width=300, height=60)
@@ -599,13 +596,12 @@ def imgValidation():
         elif st8 == True:
             img8 = ImageTk.PhotoImage(resize_check)
             s8=True
-        elif st9 == True:
+        elif st9 == True and numSwitch==10 and s0 == True and s1== True and  s2== True and s3== True and s4== True and s5== True and s6== True and s7== True and s8==True:
             img9 = ImageTk.PhotoImage(resize_check)
-            s9=True
+            img9=True
+        elif numSwitch==10 and s0 == True and s1== True and  s2== True and s3== True and s4== True and s5== True and s6== True and s7== True and s8==True and s9==True:
             window3()
-            break
-        
-    return img0, img1, img2, img3, img4, img5, img6, img7, img8, img9
+            break 
 
 
 def onStateChange(self, state):
