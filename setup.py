@@ -11,7 +11,7 @@ target = Executable(
 
 setup(
     name="CheckSistem",
-    version="1.2",
+    version="1.3",
     description="Sistema de verificacion de switches",
     author='Armando Nava Betancourt',
     options={"build_exe": {'include_files':files}},

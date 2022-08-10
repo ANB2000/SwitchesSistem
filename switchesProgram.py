@@ -96,6 +96,14 @@ def window2():
     noSwitch = Entry(frame2, bg="LightCyan3", font=("Arial CE", 20 ))
     noSwitch.place(x=750, y=40, width=500, height=50)  
     
+    
+    def verificarOperario(event):
+        global operario
+        codigo = operario.get()
+        for i in codigo:
+            if i not in '0123456789':
+                messagebox.showerror(title="Error", message="¡Asegurate de colocar tu numero de nomina correcto, sin espacios, letras, numeros o caracteres especiales!")
+                operario.delete(0, 'end')
       
     def timer():
         global current_time, time_label, frame1
@@ -459,11 +467,14 @@ def window2():
             parte='176A1-A4902'
         else:
             cleanEntry()
-            messagebox.showerror(title="Error", message="Asegurate de escanear los codigos en el orden correcto")               
+            messagebox.showerror(title="Error", message="¡Asegurate de escanear los codigos correctos en el orden correcto!")               
             
- 
+    resetbutton = Button(frame1, text="Reset", bg="cyan3" , fg="IndianRed4", command= lambda:[clean()],font=("Arial CE", 12 ))
+    resetbutton.place(x=640, y=60, width=70, height=40)
+    operario.bind("<Return>", verificarOperario)
     win2.bind("<Return>", focus_next_window) 
     noSwitch.bind("<Return>", codigos)
+    
     
     
 def insertdb():
@@ -482,13 +493,13 @@ def insertdb():
 
         #print(mycursor.rowcount, "Values inserted succesfull.")
     except mysql.connector.Error as error:
-        #print("Failed to insert values into Valores table {}".format(error))
         messagebox.showerror(title="Error", message="Algo salio mal, no se guardaron los datos correctamente en la Base de Datos")
+        #print("Failed to insert values into Valores table {}".format(error))
+       
 
     finally:
         if mydb.is_connected():
             mydb.close()
-            #print("MySQL connection is closed")
             
             
 def cleanEntry():
